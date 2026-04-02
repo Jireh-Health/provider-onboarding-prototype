@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #F4F4F5;
+}
+
+@layer components {
+  .input-field {
+    @apply w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition;
+  }
+
+  .input-with-icon {
+    @apply relative;
+  }
+
+  .input-with-icon .icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-400;
+  }
+
+  .input-with-icon input {
+    @apply pl-8;
+  }
+
+  .btn-primary {
+    @apply w-full py-3 rounded-xl text-sm font-semibold transition-all;
+  }
+
+  .btn-primary:not(:disabled) {
+    @apply bg-jireh-purple text-white hover:bg-jireh-purple-light cursor-pointer;
+  }
+
+  .btn-primary:disabled {
+    @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+  }
+
+  .radio-option {
+    @apply flex items-start gap-2.5 border border-gray-200 rounded-lg px-3 py-2.5 cursor-pointer transition;
+  }
+
+  .radio-option.selected {
+    @apply border-jireh-purple bg-jireh-purple-pale;
+  }
+}
