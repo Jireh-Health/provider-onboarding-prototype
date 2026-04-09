@@ -11,23 +11,23 @@ const BASE_USER = {
 const FACILITY_1 = {
   id: 'facility_1',
   name: 'Nairobi General Hospital',
-  type: 'Hospital',
-  county: 'Nairobi',
+  type: 'Hospital/Dispensary/Clinic',
+  level: 'Level 4 — Sub-County Hospital',
   status: 'active',
-  services: ['Outpatient & Primary Care', 'Inpatient & Acute Care', 'Emergency Services', 'Laboratory & Diagnostics'],
-  location: { address: 'Upper Hill, Nairobi', lat: '-1.2921', lng: '36.8219' },
-  paymentPoint: { department: 'Main Reception', type: 'mpesa-paybill', value: '400200' },
+  services: ['General Outpatient Consultation', 'Immunisation / Vaccination', 'Triage', 'Chronic Disease Management', 'General Inpatient Admission', 'Maternity', 'Theatres'],
+  receivedAmount: '1,245,000.00',
+  assignedStaff: 12,
 }
 
 const FACILITY_2 = {
   id: 'facility_2',
   name: 'Nairobi General - Annex',
-  type: 'Clinic',
-  county: 'Nairobi',
+  type: 'Hospital/Dispensary/Clinic',
+  level: 'Level 2 — Dispensary',
   status: 'active',
-  services: ['Outpatient & Primary Care', 'Pharmacy & Dispensing', 'Immunisation / Vaccination'],
-  location: { address: 'Westlands, Nairobi', lat: '-1.2673', lng: '36.8115' },
-  paymentPoint: { department: 'Reception', type: 'mpesa-till', value: '234567' },
+  services: ['General Outpatient Consultation', 'Triage', 'Basic Pharmacy', 'Immunisation / Vaccination'],
+  receivedAmount: '342,500.00',
+  assignedStaff: 4,
 }
 
 function seedAddFacility() {
@@ -79,8 +79,8 @@ const journeys = [
     label: 'Journey 4 — Adding a new facility',
     persona: 'Kamau Ole Tipis',
     description:
-      'Kamau is already logged in and has one active facility. He wants to register a second location under the same organisation. Walk through the end-to-end add-facility flow: details → services → location → payment point.',
-    tag: 'Portal → add facility wizard',
+      'Kamau is already logged in and has one active facility (Level 4 Hospital). He wants to register a second branch. Walk through the end-to-end flow: enter facility details → upload licence for AI verification → configure services filtered by deduced level.',
+    tag: 'Portal → add facility modal',
     tagColor: 'bg-purple-100 text-purple-700',
     path: '/portal?journey=add-facility',
     seed: seedAddFacility,
@@ -90,7 +90,7 @@ const journeys = [
     label: 'Journey 5 — Switching between facilities',
     persona: 'Kamau Ole Tipis',
     description:
-      'Kamau manages two facilities: Nairobi General Hospital and Nairobi General Annex. He works from one facility at a time and can switch context using the facility dropdown in the portal sidebar.',
+      'Kamau manages two facilities: Nairobi General Hospital (Level 4) and Nairobi General - Annex (Level 2 Dispensary). He works from one facility at a time and switches context using the facility dropdown in the portal sidebar.',
     tag: 'Portal → facility switcher',
     tagColor: 'bg-teal-100 text-teal-700',
     path: '/portal?journey=switch-facility',
