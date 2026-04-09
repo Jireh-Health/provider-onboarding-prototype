@@ -10,7 +10,7 @@ import AddFacility from './pages/AddFacility'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || ''}>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<RegistrationForm />} />
