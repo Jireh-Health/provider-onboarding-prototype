@@ -1,6 +1,48 @@
 import { useNavigate } from 'react-router-dom'
 import JirehLogo from '../components/JirehLogo'
 
+// ── seed helpers ──────────────────────────────────────────────────────────────
+const BASE_USER = {
+  firstName: 'Kamau', lastName: 'Ole Tipis',
+  email: 'kamau.oletipis@nairobigeneral.co.ke',
+  phone: '+254712345678',
+}
+
+const FACILITY_1 = {
+  id: 'facility_1',
+  name: 'Nairobi General Hospital',
+  type: 'Hospital',
+  county: 'Nairobi',
+  status: 'active',
+  services: ['Outpatient & Primary Care', 'Inpatient & Acute Care', 'Emergency Services', 'Laboratory & Diagnostics'],
+  location: { address: 'Upper Hill, Nairobi', lat: '-1.2921', lng: '36.8219' },
+  paymentPoint: { department: 'Main Reception', type: 'mpesa-paybill', value: '400200' },
+}
+
+const FACILITY_2 = {
+  id: 'facility_2',
+  name: 'Nairobi General - Annex',
+  type: 'Clinic',
+  county: 'Nairobi',
+  status: 'active',
+  services: ['Outpatient & Primary Care', 'Pharmacy & Dispensing', 'Immunisation / Vaccination'],
+  location: { address: 'Westlands, Nairobi', lat: '-1.2673', lng: '36.8115' },
+  paymentPoint: { department: 'Reception', type: 'mpesa-till', value: '234567' },
+}
+
+function seedAddFacility() {
+  localStorage.setItem('jireh_user', JSON.stringify(BASE_USER))
+  localStorage.setItem('jireh_facilities', JSON.stringify([FACILITY_1]))
+  localStorage.setItem('jireh_active_facility', 'facility_1')
+}
+
+function seedSwitchFacility() {
+  localStorage.setItem('jireh_user', JSON.stringify(BASE_USER))
+  localStorage.setItem('jireh_facilities', JSON.stringify([FACILITY_1, FACILITY_2]))
+  localStorage.setItem('jireh_active_facility', 'facility_1')
+}
+
+// ── journeys ──────────────────────────────────────────────────────────────────
 const journeys = [
   {
     id: 'unauthorized',
@@ -32,6 +74,28 @@ const journeys = [
     tagColor: 'bg-blue-100 text-blue-700',
     path: '/inbox',
   },
+  {
+    id: 'add-facility',
+    label: 'Journey 4 — Adding a new facility',
+    persona: 'Kamau Ole Tipis',
+    description:
+      'Kamau is already logged in and has one active facility. He wants to register a second location under the same organisation. Walk through the end-to-end add-facility flow: details → services → location → payment point.',
+    tag: 'Portal → add facility wizard',
+    tagColor: 'bg-purple-100 text-purple-700',
+    path: '/portal?journey=add-facility',
+    seed: seedAddFacility,
+  },
+  {
+    id: 'switch-facility',
+    label: 'Journey 5 — Switching between facilities',
+    persona: 'Kamau Ole Tipis',
+    description:
+      'Kamau manages two facilities: Nairobi General Hospital and Nairobi General Annex. He works from one facility at a time and can switch context using the facility dropdown in the portal sidebar.',
+    tag: 'Portal → facility switcher',
+    tagColor: 'bg-teal-100 text-teal-700',
+    path: '/portal?journey=switch-facility',
+    seed: seedSwitchFacility,
+  },
 ]
 
 export default function Landing() {
@@ -47,11 +111,11 @@ export default function Landing() {
             Prototype
           </span>
           <h1 className="mt-3 text-2xl font-bold text-gray-900">
-            Provider Onboarding — Stage 1
+            Provider Onboarding & Portal
           </h1>
           <p className="mt-1.5 text-sm text-gray-500 max-w-md mx-auto">
-            The authorization loop: finding the right person to onboard a facility.
-            Select a journey entry point below.
+            End-to-end journeys covering the authorization loop, registration, and multi-facility portal management.
+            Select a journey below.
           </p>
         </div>
 
@@ -59,7 +123,7 @@ export default function Landing() {
           {journeys.map((j) => (
             <button
               key={j.id}
-              onClick={() => navigate(j.path)}
+              onClick={() => { j.seed?.(); navigate(j.path) }}
               className="w-full text-left bg-white rounded-2xl shadow-sm border border-gray-100 px-6 py-5 hover:shadow-md hover:border-purple-200 transition-all group"
             >
               <div className="flex items-start justify-between gap-4">

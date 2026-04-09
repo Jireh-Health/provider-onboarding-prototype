@@ -5,6 +5,8 @@ import InboxView from './pages/InboxView'
 import ThankYou from './pages/ThankYou'
 import PasswordSetup from './pages/PasswordSetup'
 import AccountCreated from './pages/AccountCreated'
+import PortalDashboard from './pages/PortalDashboard'
+import AddFacility from './pages/AddFacility'
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/password-setup" element={<PasswordSetup />} />
         <Route path="/account-created" element={<AccountCreated />} />
+        <Route path="/portal" element={<PortalDashboard />} />
+        <Route path="/add-facility" element={<AddFacility />} />
       </Routes>
     </BrowserRouter>
   )
