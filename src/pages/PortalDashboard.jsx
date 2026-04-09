@@ -53,6 +53,22 @@ const SERVICES_BY_LEVEL = {
   },
 }
 
+const SPECIALISED_SERVICES = [
+  'Physiotherapy & Rehabilitation',
+  'Dental Services',
+  'Optometry / Eye Care',
+  'Dermatology',
+  'Cardiology',
+  'Orthopaedics',
+  'Oncology',
+  'Radiology & Imaging',
+  'Dialysis / Renal Services',
+  'Mental Health & Counselling',
+  'Nutrition & Dietetics',
+  'ENT (Ear, Nose & Throat)',
+  'Palliative Care',
+]
+
 function deduceLevel(name, type) {
   if (type === 'Pharmacy/Chemist') return { key: 'Pharmacy', label: 'Licensed Pharmacy' }
   if (type === 'Laboratory') return { key: 'Laboratory', label: 'Licensed Laboratory' }
@@ -398,8 +414,9 @@ function AddFacilityModal({ onClose, onSave }) {
                   </span>
                 </div>
               )}
+              {/* Level-based standard services */}
               {Object.entries(getAvailableServices()).map(([category, services]) => (
-                <div key={category} className="mb-4 last:mb-0">
+                <div key={category} className="mb-5">
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{category}</p>
                   <div className="space-y-1.5">
                     {services.map(svc => {
@@ -421,6 +438,33 @@ function AddFacilityModal({ onClose, onSave }) {
                   </div>
                 </div>
               ))}
+
+              {/* Specialised services — available to all facility types */}
+              <div className="mt-2 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Specialised Services</p>
+                  <span className="text-xs text-gray-400 font-normal normal-case">(optional)</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-2.5">Additional services that may require separate accreditation or permits. Available to all facility types.</p>
+                <div className="space-y-1.5">
+                  {SPECIALISED_SERVICES.map(svc => {
+                    const checked = data.services.includes(svc)
+                    return (
+                      <button key={svc} type="button" onClick={() => toggleService(svc)}
+                        className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border text-left transition-all ${
+                          checked ? 'border-amber-500 bg-amber-50' : 'border-gray-200 hover:border-gray-300 bg-white'
+                        }`}>
+                        <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 border-2 transition-colors ${
+                          checked ? 'bg-amber-500 border-amber-500' : 'border-gray-300'
+                        }`}>
+                          {checked && <I d={P.check} size={10} className="text-white" sw={3} />}
+                        </div>
+                        <span className={`text-sm ${checked ? 'font-medium text-amber-700' : 'text-gray-700'}`}>{svc}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           )}
         </div>
