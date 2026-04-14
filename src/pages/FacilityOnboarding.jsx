@@ -271,6 +271,50 @@ function StepIndicator({ current, total }) {
 // OVERVIEW PAGE (Setup dashboard with task cards)
 // ═══════════════════════════════════════════════════════════════════════════════
 
+function TaskIcon({ num }) {
+  // Multi-colored illustration-style icons matching designer mockup
+  if (num === 1) return (
+    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+      <rect x="8" y="12" width="24" height="18" rx="2" stroke="#7B2DBB" strokeWidth="1.5" fill="#F3E8FF" />
+      <rect x="12" y="8" width="16" height="8" rx="1.5" stroke="#6B7280" strokeWidth="1.2" fill="#F9FAFB" />
+      <rect x="14" y="22" width="5" height="8" rx="1" fill="#D8B4FE" />
+      <rect x="21" y="18" width="5" height="12" rx="1" fill="#C084FC" />
+      <circle cx="30" cy="10" r="4" fill="#A78BFA" stroke="white" strokeWidth="1.5" />
+    </svg>
+  )
+  if (num === 2) return (
+    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+      <circle cx="16" cy="14" r="5" fill="#E9D5FF" stroke="#7B2DBB" strokeWidth="1.2" />
+      <path d="M8 30c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#7B2DBB" strokeWidth="1.5" fill="#F3E8FF" />
+      <circle cx="28" cy="16" r="4" fill="#D1FAE5" stroke="#059669" strokeWidth="1.2" />
+      <circle cx="32" cy="12" r="3" fill="#059669" stroke="white" strokeWidth="1.5" />
+      <path d="M31 12h2M32 11v2" stroke="white" strokeWidth="1" strokeLinecap="round" />
+    </svg>
+  )
+  if (num === 3) return (
+    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+      <rect x="6" y="10" width="22" height="16" rx="3" fill="#E9D5FF" stroke="#7B2DBB" strokeWidth="1.2" />
+      <rect x="10" y="20" width="14" height="2" rx="1" fill="#C084FC" />
+      <rect x="10" y="15" width="8" height="2" rx="1" fill="#A78BFA" />
+      <rect x="22" y="14" width="12" height="16" rx="2" fill="#D1FAE5" stroke="#059669" strokeWidth="1.2" />
+      <rect x="25" y="18" width="6" height="1.5" rx="0.75" fill="#6EE7B7" />
+      <rect x="25" y="22" width="6" height="1.5" rx="0.75" fill="#6EE7B7" />
+      <rect x="25" y="26" width="4" height="1.5" rx="0.75" fill="#6EE7B7" />
+    </svg>
+  )
+  return (
+    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+      <rect x="6" y="12" width="20" height="14" rx="2" fill="#FEF3C7" stroke="#D97706" strokeWidth="1.2" />
+      <rect x="10" y="16" width="12" height="2" rx="1" fill="#FDE68A" />
+      <rect x="10" y="20" width="8" height="2" rx="1" fill="#FDE68A" />
+      <rect x="22" y="8" width="14" height="10" rx="2" fill="#D1FAE5" stroke="#059669" strokeWidth="1.2" />
+      <path d="M26 11h6M26 14h4" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="32" cy="24" r="5" fill="#A78BFA" stroke="white" strokeWidth="1.5" />
+      <path d="M30 24h4M32 22v4" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 function OverviewPage({ onAddFacility }) {
   const tasks = [
     { num: 1, title: 'Add a facility', btn: 'Add facility', action: onAddFacility },
@@ -290,31 +334,31 @@ function OverviewPage({ onAddFacility }) {
           <h2 className="text-lg font-bold text-gray-900 mb-1">Complete your facility set-up</h2>
           <p className="text-sm text-gray-500 mb-6">Fill in the missing information to activate your facility.</p>
 
-          <div className="flex items-start gap-4">
+          <div className="flex items-stretch gap-3">
             {tasks.map(t => (
               <div key={t.num}
-                className="flex-1 bg-white border border-gray-200 rounded-xl p-4 min-w-0">
-                <div className="flex items-start justify-between mb-4">
-                  <span className="w-6 h-6 rounded-md border border-jireh-purple text-jireh-purple text-xs font-bold flex items-center justify-center">
+                className="flex-1 bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 min-w-0 flex flex-col">
+                {/* Top row: number badge + icon */}
+                <div className="flex items-start justify-between mb-8">
+                  <span className="w-7 h-7 rounded-lg border border-gray-300 text-gray-700 text-xs font-bold flex items-center justify-center bg-white">
                     {t.num}
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center">
-                    <I d={t.num === 1 ? P.building : t.num === 2 ? P.users : t.num === 3 ? P.banknotes : P.academic}
-                      size={16} className="text-jireh-purple" sw={1.5} />
-                  </div>
+                  <TaskIcon num={t.num} />
                 </div>
-                <p className="text-sm font-medium text-gray-900 mb-3 leading-snug">{t.title}</p>
+                {/* Title */}
+                <p className="text-sm font-medium text-gray-900 mb-4 leading-snug">{t.title}</p>
+                {/* Button */}
                 <button onClick={t.action}
-                  className="text-sm font-medium text-jireh-purple border border-jireh-purple rounded-lg px-4 py-1.5 hover:bg-jireh-purple-pale transition-colors">
+                  className="self-start text-sm font-medium text-jireh-purple border border-jireh-purple rounded-lg px-5 py-2 hover:bg-jireh-purple-pale transition-colors">
                   {t.btn}
                 </button>
               </div>
             ))}
 
             {/* Profile complete circle */}
-            <div className="flex-shrink-0 w-24 flex flex-col items-center justify-center pt-2">
-              <div className="w-16 h-16 rounded-full border-2 border-gray-200 flex items-center justify-center mb-2">
-                <I d={P.check} size={28} className="text-gray-300" sw={1.5} />
+            <div className="flex-shrink-0 flex flex-col items-center justify-center px-4">
+              <div className="w-20 h-20 rounded-full border-2 border-gray-200 flex items-center justify-center mb-2">
+                <I d={P.check} size={32} className="text-gray-300" sw={1.5} />
               </div>
               <p className="text-xs text-gray-400 text-center leading-tight">Facility<br />set-up<br />complete!</p>
             </div>
