@@ -42,6 +42,16 @@ function seedSwitchFacility() {
   localStorage.setItem('jireh_active_facility', 'facility_1')
 }
 
+function seedFacilityOnboarding() {
+  localStorage.setItem('jireh_user', JSON.stringify({
+    firstName: 'Amina', lastName: 'Ochieng',
+    email: 'amina.ochieng@citygeneralhospital.co.ke',
+    phone: '+254722345678',
+  }))
+  localStorage.setItem('jireh_facilities', JSON.stringify([]))
+  localStorage.removeItem('jireh_active_facility')
+}
+
 // ── journeys ──────────────────────────────────────────────────────────────────
 const journeys = [
   {
@@ -96,6 +106,28 @@ const journeys = [
     path: '/portal?journey=switch-facility',
     seed: seedSwitchFacility,
   },
+  { id: 'divider', divider: true, title: 'Onboarding Process Scenarios' },
+  {
+    id: 'provider-onboarding',
+    label: 'Journey 6 — Provider Onboarding',
+    persona: 'Dr. Amina Ochieng',
+    description:
+      'The full provider onboarding process: establishing the legal partnership between a business entity and Jireh. Covers personal details, authorization check, identity verification (ID + selfie), CR12 upload with OCR matching, ownership verification, commercial agreement signing, and account activation.',
+    tag: 'Identity-first → agreement → In-Network',
+    tagColor: 'bg-indigo-100 text-indigo-700',
+    path: '/provider-onboarding',
+  },
+  {
+    id: 'facility-onboarding',
+    label: 'Journey 7 — Facility Onboarding',
+    persona: 'Dr. Amina Ochieng',
+    description:
+      'Adding and configuring a facility under an already-onboarded provider. Covers license upload with OCR-based level deduction, level-filtered service configuration, map pinning, payment points with Jireh Payment Numbers, settlement account setup, and ABAC staff management.',
+    tag: 'License-first → level deduction → provisioning',
+    tagColor: 'bg-rose-100 text-rose-700',
+    path: '/facility-onboarding',
+    seed: seedFacilityOnboarding,
+  },
 ]
 
 export default function Landing() {
@@ -120,37 +152,50 @@ export default function Landing() {
         </div>
 
         <div className="space-y-3">
-          {journeys.map((j) => (
-            <button
-              key={j.id}
-              onClick={() => { j.seed?.(); navigate(j.path) }}
-              className="w-full text-left bg-white rounded-2xl shadow-sm border border-gray-100 px-6 py-5 hover:shadow-md hover:border-purple-200 transition-all group"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-semibold text-gray-900 group-hover:text-jireh-purple transition-colors">
-                      {j.label}
-                    </span>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${j.tagColor}`}>
-                      {j.tag}
-                    </span>
+          {journeys.map((j) => {
+            if (j.divider) {
+              return (
+                <div key={j.id} className="pt-6 pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-px bg-gray-200" />
+                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{j.title}</span>
+                    <div className="flex-1 h-px bg-gray-200" />
                   </div>
-                  <p className="mt-1 text-xs font-medium text-jireh-purple">
-                    Persona: {j.persona}
-                  </p>
-                  <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">
-                    {j.description}
-                  </p>
                 </div>
-                <div className="mt-1 text-gray-300 group-hover:text-jireh-purple transition-colors flex-shrink-0">
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+              )
+            }
+            return (
+              <button
+                key={j.id}
+                onClick={() => { j.seed?.(); navigate(j.path) }}
+                className="w-full text-left bg-white rounded-2xl shadow-sm border border-gray-100 px-6 py-5 hover:shadow-md hover:border-purple-200 transition-all group"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-semibold text-gray-900 group-hover:text-jireh-purple transition-colors">
+                        {j.label}
+                      </span>
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${j.tagColor}`}>
+                        {j.tag}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs font-medium text-jireh-purple">
+                      Persona: {j.persona}
+                    </p>
+                    <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">
+                      {j.description}
+                    </p>
+                  </div>
+                  <div className="mt-1 text-gray-300 group-hover:text-jireh-purple transition-colors flex-shrink-0">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            )
+          })}
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-400">
