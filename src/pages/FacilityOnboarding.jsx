@@ -171,7 +171,7 @@ function SidebarOverview({ navigate }) {
     <aside className="w-56 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col">
       <div className="px-5 py-5"><JirehLogo size="sm" /></div>
       <nav className="flex-1 px-3 pt-2 space-y-0.5">
-        <NavItem icon="setup" label="Set up your account" active />
+        <NavItem icon="setup" label="Set up your facility" active />
         <NavItem icon="invoice" label="Invoices" />
         <NavItem icon="wallet" label="Wallet" />
         <div className="pt-4 pb-1 px-3">
@@ -287,8 +287,8 @@ function OverviewPage({ onAddFacility }) {
 
       <div className="flex-1 p-6">
         <div className="max-w-4xl">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Complete your account set-up</h2>
-          <p className="text-sm text-gray-500 mb-6">Fill in the missing information to activate your account.</p>
+          <h2 className="text-lg font-bold text-gray-900 mb-1">Complete your facility set-up</h2>
+          <p className="text-sm text-gray-500 mb-6">Fill in the missing information to activate your facility.</p>
 
           <div className="flex items-start gap-4">
             {tasks.map(t => (
@@ -316,7 +316,7 @@ function OverviewPage({ onAddFacility }) {
               <div className="w-16 h-16 rounded-full border-2 border-gray-200 flex items-center justify-center mb-2">
                 <I d={P.check} size={28} className="text-gray-300" sw={1.5} />
               </div>
-              <p className="text-xs text-gray-400 text-center leading-tight">Profile<br />complete!</p>
+              <p className="text-xs text-gray-400 text-center leading-tight">Facility<br />set-up<br />complete!</p>
             </div>
           </div>
         </div>
