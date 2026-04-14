@@ -302,17 +302,7 @@ function TaskIcon({ num }) {
       <rect x="25" y="26" width="4" height="1.5" rx="0.75" fill="#6EE7B7" />
     </svg>
   )
-  return (
-    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
-      <rect x="6" y="12" width="20" height="14" rx="2" fill="#FEF3C7" stroke="#D97706" strokeWidth="1.2" />
-      <rect x="10" y="16" width="12" height="2" rx="1" fill="#FDE68A" />
-      <rect x="10" y="20" width="8" height="2" rx="1" fill="#FDE68A" />
-      <rect x="22" y="8" width="14" height="10" rx="2" fill="#D1FAE5" stroke="#059669" strokeWidth="1.2" />
-      <path d="M26 11h6M26 14h4" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="32" cy="24" r="5" fill="#A78BFA" stroke="white" strokeWidth="1.5" />
-      <path d="M30 24h4M32 22v4" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  )
+  return null
 }
 
 function OverviewPage({ onAddFacility }) {
@@ -320,7 +310,6 @@ function OverviewPage({ onAddFacility }) {
     { num: 1, title: 'Add a facility', btn: 'Add facility', action: onAddFacility },
     { num: 2, title: 'Assign roles to facility staff', btn: 'Assign roles', action: () => {} },
     { num: 3, title: 'Add where clients should pay', btn: 'Add payment point', action: () => {} },
-    { num: 4, title: 'Book a staff training', btn: 'Book training', action: () => {} },
   ]
 
   return (
@@ -330,7 +319,7 @@ function OverviewPage({ onAddFacility }) {
       </header>
 
       <div className="flex-1 p-6">
-        <div className="max-w-4xl">
+        <div className="max-w-3xl">
           <h2 className="text-lg font-bold text-gray-900 mb-1">Complete your facility set-up</h2>
           <p className="text-sm text-gray-500 mb-6">Fill in the missing information to activate your facility.</p>
 
@@ -355,7 +344,7 @@ function OverviewPage({ onAddFacility }) {
               </div>
             ))}
 
-            {/* Profile complete circle */}
+            {/* Facility set-up complete circle */}
             <div className="flex-shrink-0 flex flex-col items-center justify-center px-4">
               <div className="w-20 h-20 rounded-full border-2 border-gray-200 flex items-center justify-center mb-2">
                 <I d={P.check} size={32} className="text-gray-300" sw={1.5} />
